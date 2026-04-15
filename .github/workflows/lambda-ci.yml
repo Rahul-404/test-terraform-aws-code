@@ -36,4 +36,4 @@ jobs:
         run: flake8 .
 
       - name: Run tests
-        run: pytest tests/lambda/
+        run: pytest -q tests/lambda/
