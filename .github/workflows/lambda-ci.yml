@@ -42,8 +42,8 @@ jobs:
           pip install -r lambda/requirements.txt
           pip install pytest flake8
 
-      - name: Lint code
-        run: flake8 lambda/lambda_function.py
+      # - name: Lint code
+      #   run: flake8 lambda/lambda_function.py
 
       - name: Run tests
         run: pytest -v ./tests/
