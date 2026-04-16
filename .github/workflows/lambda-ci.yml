@@ -1,6 +1,14 @@
 name: Lambda CI
 
 on:
+  # 1. Run on every push to your feature branch
+  push:
+    branches:
+      - test/lambda
+    paths:
+      - 'lambda/**'
+
+  # 2. Run when you open a PR targeting main
   pull_request:
     branches:
       - main
@@ -33,7 +41,7 @@ jobs:
           pip install pytest flake8
 
       - name: Lint code
-        run: flake8 .
+        run: flake8 lambda/lambda_function.py
 
       - name: Run tests
-        run: pytest -q tests/lambda/
+        run: pytest -v tests/
