@@ -7,6 +7,7 @@ on:
       - test/lambda
     paths:
       - 'lambda/**'
+      - '.github/workflows/lambda-ci.yml'
 
   # 2. Run when you open a PR targeting main
   pull_request:
@@ -14,6 +15,7 @@ on:
       - main
     paths:
       - 'lambda/**'
+      - '.github/workflows/lambda-cd.yml'
 
 jobs:
   test-lambda:
@@ -37,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r lambda/requirements.txt
           pip install pytest flake8
 
       - name: Lint code
