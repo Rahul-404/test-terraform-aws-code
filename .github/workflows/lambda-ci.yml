@@ -44,4 +44,4 @@ jobs:
         # run: flake8 lambda/lambda_function.py
 
       - name: Run tests
-        run: pytest -v tests/
+        run: pytest -v ../tests/
