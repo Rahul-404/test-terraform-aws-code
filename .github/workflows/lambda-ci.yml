@@ -20,9 +20,9 @@ jobs:
     name: Test Lambda Code
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: lambda
+    # defaults:
+    #   run:
+    #     working-directory: lambda
 
     steps:
       - name: Checkout code
@@ -40,8 +40,8 @@ jobs:
           pip install -r requirements.txt
           pip install pytest flake8
 
-      # - name: Lint code
-        # run: flake8 lambda/lambda_function.py
+      - name: Lint code
+        run: flake8 lambda/lambda_function.py
 
       - name: Run tests
-        run: pytest -v ../tests/
+        run: pytest -v ./tests/
