@@ -59,6 +59,7 @@ def lambda_handler(event, context):
             'body': json.dumps({'error': 'Internal Server Error'})
         }
     
+    
 # How to Test:
 # - GET: https://api-id.execute-api.region.amazonaws.com
 # - POST: Send a JSON body like {"min": 5, "max": 50} to the endpoint.
