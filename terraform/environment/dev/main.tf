@@ -6,8 +6,9 @@ module "artifact_bucket" {
   source = "../../modules/s3"
 
   tags = merge({
-    Environment = "dev"
-    Project     = "demo"
+    Environment = var.environment
+    Project     = var.project_name
+    Owner       = var.owner
     },
     var.additional_tags
   )
