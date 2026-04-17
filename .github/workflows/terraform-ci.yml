@@ -17,18 +17,25 @@ on:
     paths:
       - 'terraform/**'
       - '**.tf'
-      - '.github/workflows/terraform-cd.yml'
+      - '.github/workflows/terraform-ci.yml'
 
 jobs:
   terraform-ci:
     name: Run Terraform CI Pipeline
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        env: [dev, staging, prod]
+
     defaults:
       run:
-        working-directory: terraform
+        working-directory: terraform/environments/${{ matrix.env }}
 
     steps:
+      - name: Show environment
+        run: echo "Running for ${{ matrix.env }}"
+      
       - name: Checkout repository
         uses: actions/checkout@v5
 
@@ -59,17 +66,16 @@ jobs:
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v5
 
-      - name: Init TFLint
-        run: tflint --init && tflint
-
       - name: Run TFLint
-        run: tflint --recursive
+        run: | 
+          tflint --init
+          tflint --recursive
       # Terraform Plan (NO APPLY)
       - name: Terraform Plan
         run: terraform plan -input=false -lock=false
       # Run Unit Tests (pytest)
-      - name: Run pytest
-        run: pytest ../test/unit
+      - name: Run pytest (unit)
+        run: pytest ../../../tests/unit
       # Run Integration Tests (tftest with mocks)
-      - name: Run tftest
-        run: pytest ../tests/integration
+      - name: Run tftest (integration)
+        run: pytest ../../../tests/integration
