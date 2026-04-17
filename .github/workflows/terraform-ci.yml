@@ -20,20 +20,28 @@ on:
       - '.github/workflows/terraform-cd.yml'
 
 jobs:
-  terraform-checks:
-    name: Terraform Validation
+  terraform-ci:
+    name: Run Terraform CI Pipeline
     runs-on: ubuntu-latest
 
-    # defaults:
-    #   run:
-    #     working-directory: terraform
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v5
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.6.6   # pin version (important for consistency)
+      # Setup Python (for pytest + tftest)
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest tftest
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
@@ -48,7 +56,16 @@ jobs:
         uses: terraform-linters/setup-tflint@v5
 
       - name: Init TFLint
-        run: tflint --init
+        run: tflint --init && tflint
 
       - name: Run TFLint
         run: tflint --chdir=terraform --recursive
+      # Terraform Plan (NO APPLY)
+      - name: Terraform Plan
+        run: terraform plan -input=false -lock=false
+      # Run Unit Tests (pytest)
+      - name: Run pytest
+        run: pytest test/unit
+      # Run Integration Tests (tftest with mocks)
+      - name: Run tftest
+        run: pytest tests/integration
