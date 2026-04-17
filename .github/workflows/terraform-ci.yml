@@ -24,6 +24,10 @@ jobs:
     name: Run Terraform CI Pipeline
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: terraform
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -65,7 +69,7 @@ jobs:
         run: terraform plan -input=false -lock=false
       # Run Unit Tests (pytest)
       - name: Run pytest
-        run: pytest test/unit
+        run: pytest ../test/unit
       # Run Integration Tests (tftest with mocks)
       - name: Run tftest
-        run: pytest tests/integration
+        run: pytest ../tests/integration
