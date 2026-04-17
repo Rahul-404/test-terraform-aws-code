@@ -30,7 +30,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform/environments/${{ matrix.env }}
+        working-directory: terraform/environment/${{ matrix.env }}
 
     steps:
       - name: Show environment
