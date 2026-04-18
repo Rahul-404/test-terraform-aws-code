@@ -33,6 +33,9 @@ jobs:
         working-directory: terraform/environment/${{ matrix.env }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
       - name: Debug paths
         run: |
           echo "PWD: $(pwd)"
@@ -41,9 +44,6 @@ jobs:
 
       - name: Show environment
         run: echo "Running for ${{ matrix.env }}"
-      
-      - name: Checkout repository
-        uses: actions/checkout@v5
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
