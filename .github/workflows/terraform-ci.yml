@@ -39,6 +39,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Debug paths
+        run: |
+          echo "PWD: $(pwd)"
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          ls -R
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
         with:
