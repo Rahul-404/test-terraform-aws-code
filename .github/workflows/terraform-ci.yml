@@ -97,7 +97,7 @@ jobs:
         run: terraform plan -input=false -lock=false
       # Run Unit Tests (pytest)
       - name: Run pytest (unit)
-        run: pytest ../../../tests/unit/test_terraform/
+        run: pytest ../../../tests/unit/test_terraform
       # Run Integration Tests (tftest with mocks)
       - name: Run tftest (integration)
-        run: pytest ../../../tests/integration/test_terraform/
+        run: pytest ../../../tests/integration/test_terraform
