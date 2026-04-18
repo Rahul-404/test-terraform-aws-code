@@ -19,6 +19,11 @@ on:
       - '**.tf'
       - '.github/workflows/terraform-ci.yml'
 
+env:
+  
+  AWS_REGION : "ap-south-1" #Change to reflect your Region
+
+
 jobs:
   terraform-ci:
     name: Run Terraform CI Pipeline
@@ -36,11 +41,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Debug paths
-        run: |
-          echo "PWD: $(pwd)"
-          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-          ls -R
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }} #change to reflect your IAM role’s ARN
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      # - name: Debug paths
+      #   run: |
+      #     echo "PWD: $(pwd)"
+      #     echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+      #     ls -R
 
       - name: Show environment
         run: echo "Running for ${{ matrix.env }}"
