@@ -80,7 +80,12 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: Terraform Init
-        run: terraform init -backend=false
+        run: |
+          if [ "${{ matrix.env }}" == "dev" ]; then
+            terraform init -backend=false
+          else
+            terraform init
+          fi
 
       - name: Terraform Validate
         run: terraform validate
@@ -94,7 +99,7 @@ jobs:
           tflint --recursive
       # Terraform Plan (NO APPLY)
       - name: Terraform Plan
-        run: terraform plan -input=false -lock=false
+        run: terraform plan -input=false
       # Run Unit Tests (pytest)
       - name: Run pytest (unit)
         run: pytest ../../../tests/unit/test_terraform
