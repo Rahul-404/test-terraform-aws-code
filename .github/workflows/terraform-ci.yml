@@ -64,7 +64,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
         with:
-          terraform_version: 1.6.0   # pin version (important for consistency)
+          terraform_version: 1.10.0   # pin version (important for consistency)
       # Setup Python (for pytest + tftest)
       - name: Setup Python
         uses: actions/setup-python@v6
