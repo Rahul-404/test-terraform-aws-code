@@ -28,7 +28,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          cd lambda
+          pip install -r requirements.txt -t .
+
+      - name: Zip Lambda Code
+        run: |
+          cd lambda
+          zip -r ../lambda-${{ github.sha }}.zip .
+
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
