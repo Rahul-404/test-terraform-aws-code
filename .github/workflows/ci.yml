@@ -51,7 +51,8 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }} #change to reflect your IAM role’s ARN
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
-      # Hello from AWS: WhoAmI
-      - name: Sts GetCallerIdentity
+
+      - name: Upload to S3
+        if: github.event_name == 'push'
         run: |
           aws sts get-caller-identity
