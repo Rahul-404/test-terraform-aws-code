@@ -55,4 +55,9 @@ jobs:
       - name: Upload to S3
         if: github.event_name == 'push'
         run: |
-          aws sts get-caller-identity
+          aws s3 cp lambda-${{ github.sha }}.zip s3://dev-lambda-artifacts-bucket/lambda/
+
+      # Hello from AWS: WhoAmI
+      # - name: Sts GetCallerIdentity
+      #   run: |
+      #     aws sts get-caller-identity
