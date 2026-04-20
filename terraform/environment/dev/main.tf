@@ -15,6 +15,6 @@ module "artifact_bucket" {
 
   bucket_name           = "${var.environment}-lambda-artifacts-bucket"
   kms_key_arn           = null
-  enable_versioning     = true
-  enable_access_logging = true
+  enable_versioning     = false
+  enable_access_logging = false
 }
