@@ -30,3 +30,17 @@ variable "region" {
   type        = string
   default     = "ap-south-1"
 }
+
+########################
+#     s3 variables     #
+########################
+
+variable "access_log_bucket" {
+  type    = string
+  default = "my-log-bucket"
+}
+
+variable "access_log_prefix" {
+  type    = string
+  default = "artifact-logs/"
+}
