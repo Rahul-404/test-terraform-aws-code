@@ -17,6 +17,6 @@ module "artifact_bucket" {
   kms_key_arn           = null
   enable_versioning     = true
   enable_access_logging = true
-  access_log_bucket     = var.access_log_bucket
-  access_log_prefix     = var.access_log_prefix
+  access_log_bucket     = local.resolved_log_bucket
+  access_log_prefix     = local.resolved_log_prefix
 }

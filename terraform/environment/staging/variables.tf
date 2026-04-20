@@ -37,10 +37,20 @@ variable "region" {
 
 variable "access_log_bucket" {
   type    = string
-  default = "my-log-bucket"
+  default = null
 }
 
 variable "access_log_prefix" {
   type    = string
-  default = "artifact-logs/"
+  default = null
+}
+
+locals {
+  # Default values based on environment
+  base_log_bucket = "${var.environment}-log-bucket"
+  base_log_prefix = "${var.environment}-artifact-logs/"
+
+  # Final resolved values (override > default)
+  resolved_log_bucket = coalesce(var.access_log_bucket, local.base_log_bucket)
+  resolved_log_prefix = coalesce(var.access_log_prefix, local.base_log_prefix)
 }
