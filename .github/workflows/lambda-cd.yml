@@ -13,6 +13,10 @@ jobs:
     name: Package and Upload to S3
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     # Environment variables for logical isolation
     env:
       S3_BUCKET: "dev-heart-stroke-prediction-zip-artifact-bucket" # Use your bucket name from platform layer
