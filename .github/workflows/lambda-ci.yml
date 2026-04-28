@@ -15,7 +15,7 @@ on:
       - main
     paths:
       - 'lambda/**'
-      - '.github/workflows/lambda-cd.yml'
+      - '.github/workflows/lambda-ci.yml'
 
 jobs:
   test-lambda:
