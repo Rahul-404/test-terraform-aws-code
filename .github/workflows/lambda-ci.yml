@@ -1,0 +1,49 @@
+name: Lambda CI
+
+on:
+  # 1. Run on every push to your feature branch
+  push:
+    branches:
+      - test/lambda
+    paths:
+      - 'lambda/**'
+      - '.github/workflows/lambda-ci.yml'
+
+  # 2. Run when you open a PR targeting main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'lambda/**'
+      - '.github/workflows/lambda-ci.yml'
+
+jobs:
+  test-lambda:
+    name: Test Lambda Code
+    runs-on: ubuntu-latest
+
+    # defaults:
+    #   run:
+    #     working-directory: lambda
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r lambda/requirements.txt
+          pip install pytest flake8
+
+      # - name: Lint code
+      #   run: flake8 lambda/lambda_function.py
+
+      - name: Run tests
+        run: pytest -v ./tests/

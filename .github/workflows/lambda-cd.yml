@@ -1,0 +1,58 @@
+name: Lambda CD
+
+on:
+  push:
+    branches:
+      - main  # Triggered when PR is merged to main
+    paths:
+      - 'lambda/**'
+      - '.github/workflows/lambda-cd.yml'
+
+jobs:
+  deploy:
+    name: Package and Upload to S3
+    runs-on: ubuntu-latest
+
+    # Environment variables for logical isolation
+    env:
+      S3_BUCKET: "dev-heart-stroke-prediction-zip-artifact-bucket" # Use your bucket name from platform layer
+      PROJECT_NAME: "heart-stroke-prediction"
+      ENVIRONMENT: "dev"
+      AWS_REGION: "ap-south-1"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }} #change to reflect your IAM role’s ARN
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create Deployment Package
+        run: |
+          mkdir -p package
+          # Install dependencies to a local folder
+          pip install -r lambda/requirements.txt -t package/
+          # Copy the actual lambda function code
+          cp lambda/lambda_function.py package/
+          # Zip the contents
+          cd package
+          zip -r ../deployment_package_${{ github.sha }}.zip .
+          cd ..
+
+      - name: Upload to S3 (Logical Isolation)
+        run: |
+          # The path structure ensures isolation: project/environment/version
+          S3_KEY="${{ env.PROJECT_NAME }}/${{ env.ENVIRONMENT }}/lambda_v_${{ github.sha }}.zip"
+
+          aws s3 cp deployment_package_${{ github.sha }}.zip s3://${{ env.S3_BUCKET }}/$S3_KEY
+
+          echo "Artifact uploaded to: s3://${{ env.S3_BUCKET }}/$S3_KEY"
