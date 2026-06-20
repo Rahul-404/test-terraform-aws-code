@@ -47,4 +47,4 @@ jobs:
       - name: Check Broken Links
         run: |
           pip install mkdocs-linkcheck
-          mkdocs build && mkdocs-linkcheck
+          mkdocs build && mkdocs-linkcheck site
