@@ -1,0 +1,326 @@
+site_name: Docs
+site_url: https://rahul-404.github.io/test-terraform-aws-code/
+site_description: >
+  A scalable and automated ETL pipeline that extracts news data from BBC News,
+  stores it in a NoSQL database, and provides real-time monitoring of the scraping process.
+
+repo_url: https://github.com/Rahul-404/test-terraform-aws-code
+repo_name: test-terraform-aws-code
+
+theme:
+  name: "material"
+  icon:
+    repo: fontawesome/brands/git-alt
+    logo: fontawesome/solid/r
+    favicons: assets/favicon.ico
+  language: en
+  font:
+    text: Merriweather Sans
+    code: Red Hat Mono
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - header.autohide
+    - announce.dismiss
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+
+  palette:
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: default
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+
+nav:
+  - Home: index.md
+
+  - Context:
+      # - Vision: 01-startup-context/vision.md
+      - Business Problem: 01-startup-context/business-problem.md
+      - Target Users: 01-startup-context/target-users.md
+      - Startup Assumptions: 01-startup-context/startup-assumptions.md
+      - Constraints: 01-startup-context/constraints.md
+      - Scale Estimation: 01-startup-context/scale-estimation.md
+      - Success Metrics: 01-startup-context/success-metrics.md
+
+  - Requirements:
+    - Functional: 02-requirements/functional-requirements.md
+    - Non-Functional: 02-requirements/non-functional-requirements.md
+    - Use Cases: 02-requirements/use-cases.md
+    # - Personas: 02-requirements/personas.md
+    - Assumptions: 02-requirements/assumptions.md
+    - Out of Scope: 02-requirements/out-of-scope.md
+
+  - System Design:
+    - Architecture Overview: 03-system-design/architecture-overview.md
+    - Layered Architecture: 03-system-design/layered-architecture.md
+    - Layers:
+        - Bootstrap Layer: 03-system-design/layers/bootstrap-layer.md
+        - Organization & Security Layer: 03-system-design/layers/organization-security-layer.md
+        - Network Layer: 03-system-design/layers/network-layer.md
+        - Connectivity Layer: 03-system-design/layers/connectivity-layer.md
+        - Platform Foundation Layer: 03-system-design/layers/platform-foundation-layer.md
+        - Data Platform Layer: 03-system-design/layers/data-platform-layer.md
+        - ML Services Layer: 03-system-design/layers/ml-services-layer.md
+        - Application Layer: 03-system-design/layers/application-layer.md
+        - Consumer Layer: 03-system-design/layers/consumer-layer.md
+    - Component Diagram: 03-system-design/component-diagram.md
+    - Service Boundaries: 03-system-design/service-boundaries.md
+    - Data Flow: 03-system-design/data-flow.md
+    - Request Flow: 03-system-design/request-flow.md
+    - Training Flow: 03-system-design/training-flow.md
+    - Deployment Flow: 03-system-design/deployment-flow.md
+    - Monitoring Flow: 03-system-design/monitoring-flow.md
+    - Sequence Diagram: 03-system-design/sequence-diagram.md
+    - Bottleneck Analysis: 03-system-design/bottleneck-analysis.md
+    - Scalability Strategy: 03-system-design/scalability-strategy.md
+
+  - ADRs:
+    - ADR-001 Single AWS Account: 04-adrs/ADR-001-single-aws-account.md
+    - ADR-002 Layered Architecture: 04-adrs/ADR-002-layered-architecture.md
+    - ADR-003 SageMaker Training: 04-adrs/ADR-003-sagemaker-training.md
+    - ADR-004 MLflow Experiment Tracking: 04-adrs/ADR-004-mlflow-experiment-tracking.md
+    - ADR-005 MLflow Model Registry: 04-adrs/ADR-005-mlflow-model-registry.md
+    - ADR-006 S3 Artifact Storage: 04-adrs/ADR-006-s3-artifact-storage.md
+    - ADR-007 EventBridge Scheduler: 04-adrs/ADR-007-eventbridge-scheduler.md
+    - ADR-008 Feature Store Strategy: 04-adrs/ADR-008-feature-store-strategy.md
+    - ADR-009 Model Deployment: 04-adrs/ADR-009-model-deployment.md
+    - ADR-010 Monitoring Stack: 04-adrs/ADR-010-monitoring-stack.md
+    - ADR-011 Terraform Module Design: 04-adrs/ADR-011-terraform-module-design.md
+    - ADR-012 GitHub Actions: 04-adrs/ADR-012-github-actions.md
+    - ADR-013 Governance: 04-adrs/ADR-013-governance.md
+
+  - Capabilities:
+    - Training:
+      - Overview: 05-capabilities/training/overview.md
+      - Responsibilities: 05-capabilities/training/responsibilities.md
+      - Architecture: 05-capabilities/training/architecture.md
+      - Workflow: 05-capabilities/training/workflow.md
+      - API Contract: 05-capabilities/training/api-contract.md
+      - State Management: 05-capabilities/training/state-management.md
+      - Terraform Module: 05-capabilities/training/terraform-module.md
+      - Security: 05-capabilities/training/security.md
+      - Observability: 05-capabilities/training/observability.md
+      - Failure Modes: 05-capabilities/training/failure-modes.md
+      - Scaling: 05-capabilities/training/scaling.md
+      - Evolution: 05-capabilities/training/evolution.md
+    - Experiment Tracking:
+      - Overview: 05-capabilities/experiment-tracking/overview.md
+      - Responsibilities: 05-capabilities/experiment-tracking/responsibilities.md
+      - Architecture: 05-capabilities/experiment-tracking/architecture.md
+      - Workflow: 05-capabilities/experiment-tracking/workflow.md
+      - API Contract: 05-capabilities/experiment-tracking/api-contract.md
+      - Metadata Model: 05-capabilities/experiment-tracking/metadata-model.md
+      - Terraform Module: 05-capabilities/experiment-tracking/terraform-module.md
+      - Observability: 05-capabilities/experiment-tracking/observability.md
+      - Failure Modes: 05-capabilities/experiment-tracking/failure-modes.md
+      - Evolution: 05-capabilities/experiment-tracking/evolution.md
+    - Model Registry:
+      - Overview: 05-capabilities/model-registry/overview.md
+      - Responsibilities: 05-capabilities/model-registry/responsibilities.md
+      - Architecture: 05-capabilities/model-registry/architecture.md
+      - Workflow: 05-capabilities/model-registry/workflow.md
+      - API Contract: 05-capabilities/model-registry/api-contract.md
+      - Versioning: 05-capabilities/model-registry/versioning.md
+      - Approval Flow: 05-capabilities/model-registry/approval-flow.md
+      - Terraform Module: 05-capabilities/model-registry/terraform-module.md
+      - Failure Modes: 05-capabilities/model-registry/failure-modes.md
+      - Evolution: 05-capabilities/model-registry/evolution.md
+    - Feature Store:
+      - Overview: 05-capabilities/feature-store/overview.md
+      - Responsibilities: 05-capabilities/feature-store/responsibilities.md
+      - Architecture: 05-capabilities/feature-store/architecture.md
+      - Workflow: 05-capabilities/feature-store/workflow.md
+      - API Contract: 05-capabilities/feature-store/api-contract.md
+      - Feature Versioning: 05-capabilities/feature-store/feature-versioning.md
+      - Consistency: 05-capabilities/feature-store/consistency.md
+      - Terraform Module: 05-capabilities/feature-store/terraform-module.md
+      - Failure Modes: 05-capabilities/feature-store/failure-modes.md
+      - Evolution: 05-capabilities/feature-store/evolution.md
+    - Deployment:
+      - Overview: 05-capabilities/deployment/overview.md
+      - Responsibilities: 05-capabilities/deployment/responsibilities.md
+      - Architecture: 05-capabilities/deployment/architecture.md
+      - Workflow: 05-capabilities/deployment/workflow.md
+      - API Contract: 05-capabilities/deployment/api-contract.md
+      - Rollout Strategy: 05-capabilities/deployment/rollout-strategy.md
+      - Rollback: 05-capabilities/deployment/rollback.md
+      - Terraform Module: 05-capabilities/deployment/terraform-module.md
+      - Failure Modes: 05-capabilities/deployment/failure-modes.md
+      - Evolution: 05-capabilities/deployment/evolution.md
+    - Monitoring:
+      - Overview: 05-capabilities/monitoring/overview.md
+      - Responsibilities: 05-capabilities/monitoring/responsibilities.md
+      - Architecture: 05-capabilities/monitoring/architecture.md
+      - Workflow: 05-capabilities/monitoring/workflow.md
+      - Metrics: 05-capabilities/monitoring/metrics.md
+      - Alerts: 05-capabilities/monitoring/alerts.md
+      - Dashboards: 05-capabilities/monitoring/dashboards.md
+      - Observability: 05-capabilities/monitoring/observability.md
+      - Failure Modes: 05-capabilities/monitoring/failure-modes.md
+      - Evolution: 05-capabilities/monitoring/evolution.md
+    - Retraining:
+      - Overview: 05-capabilities/retraining/overview.md
+      - Responsibilities: 05-capabilities/retraining/responsibilities.md
+      - Trigger Strategy: 05-capabilities/retraining/trigger-strategy.md
+      - Workflow: 05-capabilities/retraining/workflow.md
+      - Scheduling: 05-capabilities/retraining/scheduling.md
+      - Orchestration: 05-capabilities/retraining/orchestration.md
+      - Terraform Module: 05-capabilities/retraining/terraform-module.md
+      - Observability: 05-capabilities/retraining/observability.md
+      - Failure Modes: 05-capabilities/retraining/failure-modes.md
+      - Evolution: 05-capabilities/retraining/evolution.md
+    - Governance:
+      - Overview: 05-capabilities/governance/overview.md
+      - Responsibilities: 05-capabilities/governance/responsibilities.md
+      - Model Approval: 05-capabilities/governance/model-approval.md
+      - Lineage: 05-capabilities/governance/lineage.md
+      - Metadata: 05-capabilities/governance/metadata.md
+      - Audit: 05-capabilities/governance/audit.md
+      - Access Control: 05-capabilities/governance/access-control.md
+      - Policy Enforcement: 05-capabilities/governance/policy-enforcement.md
+      - Observability: 05-capabilities/governance/observability.md
+      - Failure Modes: 05-capabilities/governance/failure-modes.md
+      - Evolution: 05-capabilities/governance/evolution.md
+
+  - Infrastructure:
+      - Overview: 06-infrastructure/overview.md
+      - Account Strategy: 06-infrastructure/account-strategy.md
+      - Environment Strategy: 06-infrastructure/environment-strategy.md
+      - Terraform State: 06-infrastructure/terraform-state.md
+      - State Isolation : 06-infrastructure/state-isolation.md
+      - Provider Configuration : 06-infrastructure/provider-configuration.md
+      - Tagging Strategy : 06-infrastructure/tagging-strategy.md
+      - Naming Strategy : 06-infrastructure/naming-strategy.md
+      - Secrets Management : 06-infrastructure/secrets-management.md
+      - Cost Management : 06-infrastructure/cost-management.md
+      - Disaster Recovery: 06-infrastructure/disaster-recovery.md
+
+  - Terraform:
+      - Repository Layout: 07-terraform/repository-layout.md
+      - Module Design: 07-terraform/module-design.md
+      - Naming Conventions: 07-terraform/naming-conventions.md
+      - Variable Conventions: 07-terraform/variable-conventions.md
+      - Outputs: 07-terraform/outputs.md
+      - Remote State: 07-terraform/remote-state.md
+      - Testing: 07-terraform/testing.md
+      - Reusable Patterns: 07-terraform/reusable-patterns.md
+      - Adding New Module: 07-terraform/adding-new-module.md
+
+  - CI/CD:
+      - Overview: 08-cicd/overview.md
+      - Github Actions: 08-cicd/github-actions.md
+
+      - Infrastructure Delivery: 08-cicd/infrastructure-delivery.md
+      - Application Delivery: 08-cicd/application-delivery.md
+      - ML Delivery: 08-cicd/ml-delivery.md
+      - Deployment: 08-cicd/deployment.md
+
+      - Release Strategy: 08-cicd/release-strategy.md
+      - Rollback: 08-cicd/rollback-strategy.md
+      - Secrets Management: 08-cicd/secrets-management.md
+      - OIDC: 08-cicd/oidc-authentication.md
+
+  - Onboarding:
+      - Overview: 09-onboarding/onboarding-overview.md
+      - Adding New Project: 09-onboarding/adding-new-project.md
+      - Project Template: 09-onboarding/project-template.md
+      - Example - Heart Stroke Prediction: 09-onboarding/heart-stroke-example.md
+      - Example - Fraud Detection: 09-onboarding/fraud-example.md
+      - Example - Recommendation System: 09-onboarding/recommendation-example.md
+
+  - Roadmap:
+      - Startup v1: 10-roadmap/startup-v1.md
+      - Growth v2: 10-roadmap/growth-v2.md
+      - Enterprise v3: 10-roadmap/enterprise-v3.md
+      - Migration Strategy: 10-roadmap/migration-strategy.md
+      - Known Limitations: 10-roadmap/known-limitations.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy                # or numpy, auto, google, sphinx
+            allow_inspection: true
+            find_stubs_package: false
+            heading_level: 3                      # starting header level
+            parameter_headings: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            type_parameter_headings: false
+            show_labels: false
+            show_submodules: true
+            extra:                                 # move all unrecognized/deprecated options here
+              ignore_init_summary: true
+              inheritance_diagram_direction: LR
+              trim_doctest_flags: true
+
+  - social:
+      cards_layout_options:
+        background_color: "#ff1493"
+
+  - autorefs:
+      link_titles: auto
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      default_lang: python
+
+extra_javascript:
+- https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/rahulshelke981/
+      name: LinkedIn
+    - icon: fontawesome/brands/github
+      link: https://github.com/Rahul-404
+      name: Github
+    # - icon: fontawesome/brands/kaggle
+    #   link: https://www.kaggle.com/rahulshelke98
+    #   name: Kaggle
+    # - icon: simple/medium
+    #   link: https://medium.com/@rahulshelke3399
+    #   name: Medium
+
+  generator: false
+
+copyright: Copyright &copy; 2026 Rahul Shelke
