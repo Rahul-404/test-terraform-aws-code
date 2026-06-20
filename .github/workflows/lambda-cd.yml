@@ -1,0 +1,64 @@
+name: Lambda CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/**'
+
+env:
+  AWS_REGION: ap-south-1
+  S3_BUCKET: dev-lambda-artifacts-bucket
+  LAMBDA_FUNCTION_NAME: my-lambda-function
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-lambda:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: lambda
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build Lambda Package
+        run: |
+          mkdir -p build
+          pip install -r requirements.txt -t build/
+          cp *.py build/
+          cd build
+          zip -r ../../lambda-${{ github.sha }}.zip .
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload Artifact to S3
+        run: |
+          aws s3 cp ../lambda-${{ github.sha }}.zip s3://${{ env.S3_BUCKET }}/lambda/
+
+      - name: Deploy to Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+            --s3-bucket ${{ env.S3_BUCKET }} \
+            --s3-key lambda/lambda-${{ github.sha }}.zip
+
+      - name: Publish Version
+        run: |
+          aws lambda publish-version \
+            --function-name ${{ env.LAMBDA_FUNCTION_NAME }}
