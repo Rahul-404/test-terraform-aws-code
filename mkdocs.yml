@@ -209,7 +209,7 @@ nav:
       - Overview: 06-infrastructure/overview.md
       - Account Strategy: 06-infrastructure/account-strategy.md
       - Environment Strategy: 06-infrastructure/environment-strategy.md
-      - Terraform State: 06-infrastructure/terraform-state.md
+      # - Terraform State: 06-infrastructure/terraform-state.md
       - State Isolation : 06-infrastructure/state-isolation.md
       - Provider Configuration : 06-infrastructure/provider-configuration.md
       - Tagging Strategy : 06-infrastructure/tagging-strategy.md
