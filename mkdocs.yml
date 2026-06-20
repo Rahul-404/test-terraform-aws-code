@@ -76,16 +76,16 @@ nav:
   - System Design:
     - Architecture Overview: 03-system-design/architecture-overview.md
     - Layered Architecture: 03-system-design/layered-architecture.md
-    - Layers:
-        - Bootstrap Layer: 03-system-design/layers/bootstrap-layer.md
-        - Organization & Security Layer: 03-system-design/layers/organization-security-layer.md
-        - Network Layer: 03-system-design/layers/network-layer.md
-        - Connectivity Layer: 03-system-design/layers/connectivity-layer.md
-        - Platform Foundation Layer: 03-system-design/layers/platform-foundation-layer.md
-        - Data Platform Layer: 03-system-design/layers/data-platform-layer.md
-        - ML Services Layer: 03-system-design/layers/ml-services-layer.md
-        - Application Layer: 03-system-design/layers/application-layer.md
-        - Consumer Layer: 03-system-design/layers/consumer-layer.md
+    # - Layers:
+    #     - Bootstrap Layer: 03-system-design/layers/bootstrap-layer.md
+    #     - Organization & Security Layer: 03-system-design/layers/organization-security-layer.md
+    #     - Network Layer: 03-system-design/layers/network-layer.md
+    #     - Connectivity Layer: 03-system-design/layers/connectivity-layer.md
+    #     - Platform Foundation Layer: 03-system-design/layers/platform-foundation-layer.md
+    #     - Data Platform Layer: 03-system-design/layers/data-platform-layer.md
+    #     - ML Services Layer: 03-system-design/layers/ml-services-layer.md
+    #     - Application Layer: 03-system-design/layers/application-layer.md
+    #     - Consumer Layer: 03-system-design/layers/consumer-layer.md
     - Component Diagram: 03-system-design/component-diagram.md
     - Service Boundaries: 03-system-design/service-boundaries.md
     - Data Flow: 03-system-design/data-flow.md
