@@ -1,0 +1,11 @@
+pytest
+tftest
+pre-commit
+mkdocs
+mkdocs-material
+checkov
+mkdocstrings[python]
+mkdocstrings-python
+mkdocs-material[imaging]
+pango
+pycairo

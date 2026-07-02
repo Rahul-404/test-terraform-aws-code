@@ -1,2 +1,2 @@
-# etat-terraform-aws-code
+# test-terraform-aws-code
 A sample repository created via Terraform by Rahul Shelke

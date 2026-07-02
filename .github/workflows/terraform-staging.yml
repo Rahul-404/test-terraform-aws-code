@@ -1,0 +1,98 @@
+name: Terraform Staging Deploy
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: staging-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+
+  AWS_REGION : "ap-south-1" #Change to reflect your Region
+
+# Permission can be added at job level or workflow level
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+
+jobs:
+  staging-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: staging   # optional approval layer
+
+    defaults:
+      run:
+        working-directory: terraform/environments/staging
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }} #change to reflect your IAM role’s ARN
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.10.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest tftest
+
+      - name: Terraform init (real backend)
+        run: terraform init
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v5
+
+      - name: Run TFLint
+        run: |
+          tflint --init
+          tflint --recursive
+
+      - name: Terraform plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform apply (staging)
+        run: terraform apply --auto-approve tfplan -lock-timeout=300s
+
+      - name: Create reports directory
+        run: mkdir -p tests/reports
+
+      - name: Run integration tests (real infra)
+        run: pytest ../../../tests/integration --junitxml=tests/reports/integration.xml
+
+      - name: Run E2E tests
+        run: pytest ../../../tests/e2e --junitxml=tests/reports/e2e.xml
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: tests/reports/
+
+      - name: Terraform destroy (cleanup)
+        if: always()
+        run: terraform destroy --auto-approve -lock-timeout=300s
